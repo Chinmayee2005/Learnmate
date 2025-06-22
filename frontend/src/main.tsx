@@ -5,7 +5,9 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import './index.css'; // ✅ make sure this line exists
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+const rootElement = document.getElementById("root") as HTMLElement;
+
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <BrowserRouter>
       <App />
