@@ -1,21 +1,19 @@
-import React from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import Categories from './components/Categories';
-import Features from './components/Features';
-import Dashboard from './components/Dashboard';
-import Footer from './components/Footer';
+import { Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout/Layout';
+import Welcome from './pages/Welcome';
+import Profile from './pages/Profile';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-      <Hero />
-      <Categories />
-      <Features />
-      <Dashboard />
-      <Footer />
-    </div>
+    <Routes>
+      <Route path="/" element={<Welcome />} />
+      
+      <Route path="/" element={<Layout />}>
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="profile" element={<Profile />} />
+      </Route>
+    </Routes>
   );
 }
 
