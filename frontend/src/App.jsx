@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
-import Welcome from './pages/Welcome';
+import Welcome from './pages/welcome/Welcome';
 import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
 import SignupForm from './pages/SignUp/SignupForm';
