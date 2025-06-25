@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { 
-  User, 
-  Mail, 
-  Calendar, 
-  Users, 
-  Shield, 
-  Mic, 
-  CheckCircle, 
-  ArrowRight, 
+import axios from 'axios';
+
+import {
+  User,
+  Mail,
+  Calendar,
+  Users,
+  Shield,
+  Mic,
+  CheckCircle,
+  ArrowRight,
   ArrowLeft,
   Eye,
   EyeOff
@@ -35,7 +37,7 @@ const SignupForm = () => {
 
   const validateStep = (step) => {
     const newErrors = {};
-    
+
     switch (step) {
       case 1:
         if (!formData.fullName.trim()) newErrors.fullName = 'Full name is required';
@@ -56,25 +58,40 @@ const SignupForm = () => {
         if (!formData.voicePassword) newErrors.voicePassword = 'Voice password is required';
         break;
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (validateStep(currentStep)) {
+      setIsLoading(true);
+  
       if (currentStep === 1) {
-        // Simulate sending verification email
-        setIsLoading(true);
-        setTimeout(() => {
-          setIsLoading(false);
-          setCurrentStep(currentStep + 1);
-        }, 1500);
-      } else {
+        try {
+          const response = await axios.post('http://localhost:5000/api/send-code', {
+            email: formData.email,
+          });
+          if (response.data.success) {
+            setCurrentStep(currentStep + 1);
+          } else {
+            setErrors({ email: 'Failed to send verification code' });
+          }
+        } catch (error) {
+          console.error('Error sending code:', error);
+          setErrors({ email: 'Server error. Try again later.' });
+        }
+      } 
+      
+      else {
         setCurrentStep(currentStep + 1);
       }
+  
+      setIsLoading(false);
     }
   };
+  
+  
 
   const handlePrevious = () => {
     setCurrentStep(currentStep - 1);
@@ -84,14 +101,33 @@ const SignupForm = () => {
   const handleSubmit = async () => {
     if (validateStep(currentStep)) {
       setIsLoading(true);
-      // Simulate API call
-      setTimeout(() => {
-        setIsLoading(false);
-        alert('Account created successfully!');
-        console.log('Form Data:', formData);
-      }, 2000);
+      const form = new FormData();
+      form.append('fullName', formData.fullName);
+      form.append('email', formData.email);
+      form.append('age', formData.age);
+      form.append('gender', formData.gender);
+      form.append('interests', JSON.stringify(formData.interests));
+      form.append('verificationCode', formData.verificationCode);
+      form.append('voicePassword', formData.voicePassword); // File/blob
+  
+      try {
+        const response = await axios.post('http://localhost:5000/api/signup', form, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+  
+        if (response.data.success) {
+          alert('Signup complete!');
+        } else {
+          alert(response.data.message);
+        }
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+  
+      setIsLoading(false);
     }
   };
+  
 
   const updateFormData = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -109,7 +145,7 @@ const SignupForm = () => {
               <h2 className="text-3xl font-bold text-gray-800 mb-2">Personal Information</h2>
               <p className="text-gray-600">Tell us about yourself</p>
             </div>
-            
+
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -120,9 +156,8 @@ const SignupForm = () => {
                   type="text"
                   value={formData.fullName}
                   onChange={(e) => updateFormData('fullName', e.target.value)}
-                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 ${
-                    errors.fullName ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                  }`}
+                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 ${errors.fullName ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                    }`}
                   placeholder="Enter your full name"
                 />
                 {errors.fullName && <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>}
@@ -137,9 +172,8 @@ const SignupForm = () => {
                   type="email"
                   value={formData.email}
                   onChange={(e) => updateFormData('email', e.target.value)}
-                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 ${
-                    errors.email ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                  }`}
+                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 ${errors.email ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                    }`}
                   placeholder="Enter your email address"
                 />
                 {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
@@ -155,9 +189,8 @@ const SignupForm = () => {
                     type="number"
                     value={formData.age}
                     onChange={(e) => updateFormData('age', parseInt(e.target.value))}
-                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 ${
-                      errors.age ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                    }`}
+                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 ${errors.age ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                      }`}
                     placeholder="Your age"
                     min="13"
                     max="120"
@@ -173,9 +206,8 @@ const SignupForm = () => {
                   <select
                     value={formData.gender}
                     onChange={(e) => updateFormData('gender', e.target.value)}
-                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 ${
-                      errors.gender ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                    }`}
+                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 ${errors.gender ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                      }`}
                   >
                     <option value="">Select gender</option>
                     <option value="male">Male</option>
@@ -197,7 +229,7 @@ const SignupForm = () => {
               <h2 className="text-3xl font-bold text-gray-800 mb-2">Your Interests</h2>
               <p className="text-gray-600">Select up to {formData.maxInterests} interests that match your preferences</p>
             </div>
-            
+
             <div className="mb-6">
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Maximum Interests (1-10)
@@ -233,7 +265,7 @@ const SignupForm = () => {
               <h2 className="text-3xl font-bold text-gray-800 mb-2">Email Verification</h2>
               <p className="text-gray-600">We've sent a 6-digit code to <strong>{formData.email}</strong></p>
             </div>
-            
+
             <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
               <div className="flex items-center">
                 <Mail className="w-5 h-5 text-blue-600 mr-2" />
@@ -252,9 +284,8 @@ const SignupForm = () => {
                 type="text"
                 value={formData.verificationCode}
                 onChange={(e) => updateFormData('verificationCode', e.target.value.replace(/\D/g, '').slice(0, 6))}
-                className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-center text-2xl tracking-widest ${
-                  errors.verificationCode ? 'border-red-500 bg-red-50' : 'border-gray-300'
-                }`}
+                className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-center text-2xl tracking-widest ${errors.verificationCode ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                  }`}
                 placeholder="000000"
                 maxLength="6"
               />
@@ -295,7 +326,7 @@ const SignupForm = () => {
       <div className="w-full max-w-2xl">
         <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12">
           <StepIndicator currentStep={currentStep} totalSteps={totalSteps} />
-          
+
           <div className="mt-8">
             {renderStep()}
           </div>

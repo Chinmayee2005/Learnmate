@@ -24,7 +24,7 @@ const VoicePassword = ({ onVoicePasswordChange, error }) => {
       };
       
       mediaRecorder.onstop = () => {
-        const blob = new Blob(chunks, { type: 'audio/wav' });
+        const blob = new Blob(chunks, { type: 'audio/webm' });
         setAudioBlob(blob);
         onVoicePasswordChange(blob);
         stream.getTracks().forEach(track => track.stop());
