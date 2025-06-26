@@ -1,15 +1,9 @@
 import { Outlet } from 'react-router-dom';
-import Navbar from './Navbar';
 
-const Layout = () => {
+export default function Layout() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      <main>
-        <Outlet />
-      </main>
+    <div className="min-h-screen w-full bg-[#1f0036] text-white">
+      <Outlet />
     </div>
   );
-};
-
-export default Layout;
+}
