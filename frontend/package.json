@@ -10,14 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-<<<<<<< HEAD
+    "@fingerprintjs/fingerprintjs": "^4.6.2",
+    "axios": "^1.10.0",
     "framer-motion": "^12.18.1",
     "locomotive-scroll": "^4.1.4",
     "lottie-react": "^2.4.1",
-=======
-    "@fingerprintjs/fingerprintjs": "^4.6.2",
-    "axios": "^1.10.0",
->>>>>>> 048aa488e60620a31b080c0b2eaecf1b9cfa6968
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

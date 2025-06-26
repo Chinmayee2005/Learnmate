@@ -30,10 +30,16 @@ export default function Dashboard() {
 
   return (
     <div className="flex flex-col md:flex-row h-screen w-screen bg-gradient-to-br from-[#1f0036] to-[#3d0066] text-white">
-      <Sidebar setActiveSection={setActiveSection} />
+      {/* Sidebar */}
+      <Sidebar setActiveSection={setActiveSection} activeSection={activeSection} />
+      
+      {/* Main Area */}
       <div className="flex flex-col flex-1 overflow-hidden">
+        {/* Topbar */}
         <Topbar />
-        <main className="p-4 flex-1 overflow-y-auto">
+        
+        {/* Active Section */}
+        <main className="p-4 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-700 scrollbar-track-transparent">
           {sections[activeSection]}
         </main>
       </div>

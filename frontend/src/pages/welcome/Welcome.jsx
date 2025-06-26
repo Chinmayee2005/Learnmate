@@ -82,13 +82,13 @@ export default function Welcome() {
 
   if (isLoading) {
     return (
-      <div className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center space-y-4">
+      <div className="fixed inset-0 z-50 bg-[#1e0837] flex flex-col items-center justify-center space-y-4">
         <div className="relative w-20 h-20">
           <div className="absolute inset-0 border-4 border-purple-500 rounded-full animate-spin"></div>
           <div className="absolute inset-2 border-4 border-fuchsia-500 rounded-full animate-ping"></div>
           <div className="absolute inset-4 bg-purple-600 rounded-full"></div>
         </div>
-        <div className="text-white text-sm">Loading... {progress}%</div>
+        <div className="text-purple-100 text-sm">Loading... {progress}%</div>
         <div className="w-64 h-2 bg-purple-900 rounded-full overflow-hidden">
           <div
             className="h-full bg-purple-500 rounded-full transition-all duration-200"
@@ -104,9 +104,9 @@ export default function Welcome() {
       className="fixed inset-0 bg-cover bg-center overflow-hidden text-white"
       style={{ backgroundImage: "url('/Welcome-bg.png')" }}
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-[#4c1d9510] via-[#5b21b610] to-[#2e106510] backdrop-blur-[0.5px] z-0" />
-      <nav className="relative z-20 w-full flex items-center justify-between px-6 py-4 bg-[#2e1065] bg-opacity-100 shadow-md">
-        <div className="text-xl font-bold text-purple-100">YourLogo</div>
+      <div className="absolute inset-0 bg-[#1e0837]/30 backdrop-blur-[1px] z-0" />
+      <nav className="relative z-20 w-full flex items-center justify-between px-6 py-4 shadow-md bg-[#2e1065] rounded-b-xl border-b border-purple-800">
+        <div className="text-xl font-bold text-purple-100">Soulthentic</div>
         <div className="md:hidden">
           <button onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? <X className="w-6 h-6 text-purple-200" /> : <Menu className="w-6 h-6 text-purple-200" />}
@@ -124,9 +124,9 @@ export default function Welcome() {
         </div>
       )}
       <div className="relative z-10 w-full h-screen flex items-center justify-center">
-        <div className="absolute inset-0 bg-black/5 backdrop-blur-[0.2px] z-10 flex flex-col items-center justify-center px-6 text-center">
+        <div className="absolute inset-0 backdrop-blur-[1px] z-10 flex flex-col items-center justify-center px-6 text-center">
           <motion.h1
-            className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-pink-400 via-fuchsia-500 to-purple-600 bg-clip-text text-transparent drop-shadow-lg"
+            className="text-4xl md:text-5xl font-bold text-transparent bg-gradient-to-r from-pink-400 via-fuchsia-500 to-purple-600 bg-clip-text drop-shadow-md"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 1 }}
@@ -135,7 +135,7 @@ export default function Welcome() {
             Discover content that evolves with you
           </motion.h1>
           <motion.p
-            className="text-purple-200 mt-4 max-w-xl text-lg drop-shadow-sm"
+            className="text-purple-300 mt-4 max-w-xl text-lg drop-shadow-sm"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 1 }}
@@ -150,7 +150,7 @@ export default function Welcome() {
               delaySpeed={2000}
             />
           </motion.p>
-          <motion.p className="text-sm mt-4 italic text-purple-300 drop-shadow-sm">
+          <motion.p className="text-sm mt-4 italic text-purple-400 drop-shadow-sm">
             {getGreeting()} Start learning something new today.
           </motion.p>
           <motion.div
@@ -162,7 +162,7 @@ export default function Welcome() {
           >
             <Link
               to="/signup"
-              className="relative inline-block px-6 py-3 bg-gradient-to-r from-fuchsia-600 via-purple-600 to-violet-700 hover:scale-110 transition-all duration-300 shadow-[0_0_30px_#a855f7] rounded-full text-lg font-semibold text-white"
+              className="relative inline-block px-6 py-3 bg-[#3c1675] text-white rounded-full shadow-[8px_8px_16px_#1a053f,-8px_-8px_16px_#4c1e8a] hover:scale-110 transition-all duration-300"
             >
               <span className="relative z-10">Get Started</span>
               <span className="absolute inset-0 animate-ping rounded-full bg-fuchsia-500 opacity-10" />

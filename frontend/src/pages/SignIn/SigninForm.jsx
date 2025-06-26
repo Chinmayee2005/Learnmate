@@ -33,7 +33,6 @@ const SigninForm = () => {
       setIsRecording(true);
       setError('');
     } catch (err) {
-      console.error('Recording error:', err);
       setError('Microphone permission denied or not available');
     }
   };
@@ -63,7 +62,6 @@ const SigninForm = () => {
 
       if (response.data.success) {
         alert('Login successful!');
-        // Redirect/token handling
       } else {
         setError(response.data.message || 'Authentication failed');
       }
@@ -75,17 +73,17 @@ const SigninForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-50 to-blue-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-[#1e0837] via-[#2a104b] to-[#1e0837] flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-10">
+        <div className="bg-[#2c1445] text-white rounded-3xl p-8 md:p-10 shadow-[8px_8px_20px_#1e0837,-8px_-8px_20px_#36125e]">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-800 mb-2">Welcome Back</h2>
-            <p className="text-gray-600">Login using your voice password</p>
+            <h2 className="text-3xl font-bold mb-2">Welcome Back</h2>
+            <p className="text-purple-300">Login using your voice password</p>
           </div>
 
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium mb-2 text-purple-200">
                 <Mail className="inline w-4 h-4 mr-2" />
                 Email Address
               </label>
@@ -93,24 +91,23 @@ const SigninForm = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 ${error && !email ? 'border-red-500 bg-red-50' : 'border-gray-300'}`}
+                className={`w-full px-4 py-3 rounded-xl bg-[#351a5b] text-white border ${
+                  error && !email ? 'border-red-500' : 'border-transparent'
+                } focus:outline-none focus:ring-2 focus:ring-purple-500`}
                 placeholder="Enter your email"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium mb-2 text-purple-200">
                 <Mic className="inline w-4 h-4 mr-2" />
                 Record Voice Password
               </label>
-
               <div className="flex items-center space-x-4">
                 <button
                   onClick={isRecording ? stopRecording : startRecording}
-                  className={`px-6 py-2 rounded-xl text-white font-medium transition-all duration-200 ${
-                    isRecording
-                      ? 'bg-red-600 hover:bg-red-700'
-                      : 'bg-purple-600 hover:bg-purple-700'
+                  className={`px-6 py-2 rounded-xl font-medium transition-all duration-200 ${
+                    isRecording ? 'bg-red-600 hover:bg-red-700 text-white' : 'bg-purple-700 hover:bg-purple-800 text-white'
                   }`}
                 >
                   {isRecording ? (
@@ -132,12 +129,12 @@ const SigninForm = () => {
               </div>
             </div>
 
-            {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+            {error && <p className="text-red-400 text-sm mt-1">{error}</p>}
 
             <button
               onClick={handleSubmit}
               disabled={isLoading}
-              className="w-full flex items-center justify-center px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl hover:from-purple-700 hover:to-blue-700 font-medium transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center px-6 py-3 bg-gradient-to-r from-purple-700 to-pink-700 text-white rounded-xl hover:from-purple-800 hover:to-pink-800 font-medium transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <>
@@ -153,7 +150,7 @@ const SigninForm = () => {
             </button>
 
             <div className="text-center mt-4">
-              <button className="text-sm text-purple-600 hover:underline">
+              <button className="text-sm text-purple-400 hover:underline hover:text-purple-200">
                 <ArrowLeft className="inline w-4 h-4 mr-1" />
                 Back to Signup
               </button>

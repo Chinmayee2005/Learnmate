@@ -13,7 +13,7 @@ const dummyInfos = [
     id: 2,
     title: 'Study Tip',
     description: 'Pomodoro technique improves focus.',
-    imageUrl: 'https://via.placeholder.com/400x600?text=Pomodoro',
+    imageUrl: '/content1.jpg',
   },
   {
     id: 3,
@@ -40,14 +40,15 @@ export default function InfoSection() {
 
   return (
     <div className="w-full flex flex-col items-center justify-center gap-4">
-      <div className="relative w-full max-w-md h-[60vh] rounded-2xl overflow-hidden shadow-neumorphic">
+      <div className="relative w-full flex flex-col items-center justify-center max-w-md h-[60vh] rounded-2xl overflow-hidden shadow-neumorphic">
         <img
           src={currentInfo.imageUrl}
           alt={currentInfo.title}
           className="w-full h-full object-cover"
         />
         <div className="absolute bottom-0 bg-black/50 w-full text-center p-2 text-white text-sm">
-          {currentInfo.title}: {currentInfo.description}
+         <p> {currentInfo.title} </p>
+          <p>{currentInfo.description}</p>
         </div>
       </div>
 

@@ -20,7 +20,8 @@
   "dependencies": {
     "@react-three/drei": "^10.3.0",
     "@react-three/fiber": "^9.1.2",
-    "drei": "^2.2.21",
+    "axios": "^1.10.0",
+    "drei": "^0.0.45",
     "framer-motion": "^12.18.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
